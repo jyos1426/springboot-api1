@@ -3,7 +3,7 @@ buildscript{
         springBootVersion = '2.1.7.RELEASE'
         repositories {
             mavenCentral()
-            jcenter()
+//            jcenter()
         }
         dependencies {
             classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -32,8 +32,15 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web:2.6.3')
     testImplementation('org.springframework.boot:spring-boot-starter-test:2.6.3')
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    // lombok
+    compileOnly('org.projectlombok:lombok')
+    annotationProcessor('org.projectlombok:lombok')
+    testCompileOnly('org.projectlombok:lombok')
+    testAnnotationProcessor('org.projectlombok:lombok')
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
 }
 
 test {
