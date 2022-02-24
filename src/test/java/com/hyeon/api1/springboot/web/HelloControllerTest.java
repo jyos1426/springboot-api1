@@ -3,8 +3,8 @@ package com.hyeon.api1.springboot.web;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.test.context.junit4.SpringRunner; 이거 대신 SpringExtension
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -23,7 +23,7 @@ public class HelloControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void hello_return() throws Exception {
+    public void helloReturnTest() throws Exception {
         String hello = "hello";
 
         mvc.perform(get("/hello"))
@@ -33,7 +33,7 @@ public class HelloControllerTest {
     }
 
     @Test
-    public void hello_dto_return() throws Exception {
+    public void helloDtoReturnTest() throws Exception {
         String name = "name1";
         int amount = 1000;
 
