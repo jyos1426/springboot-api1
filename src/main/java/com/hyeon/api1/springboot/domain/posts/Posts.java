@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @Getter // 클래스 내 모든 필드의 Getter 메소드 자동 생성
 @NoArgsConstructor //기본 생성자 자동 추가
 @Entity
-public class Posts {
+public class Posts extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
     private Long id;

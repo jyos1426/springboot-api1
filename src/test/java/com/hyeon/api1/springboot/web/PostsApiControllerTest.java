@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,12 +45,12 @@ public class PostsApiControllerTest {
     @Test
     public void registerPostsTest() throws Exception {
         // given
-        String title = "title";
-        String content = "content";
+        String title = "title:registerPostsTest";
+        String content = "content:registerPostsTest";
         PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
                 .title(title)
                 .content(content)
-                .author("author")
+                .author("author:registerPostsTest")
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/posts";
@@ -76,8 +77,8 @@ public class PostsApiControllerTest {
                 .build());
 
         Long updateId = savedPosts.getId();
-        String expectedTitle = "title2";
-        String expectedContent = "content2";
+        String expectedTitle = "title:updatePostTest";
+        String expectedContent = "content:updatePostTest";
 
         PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder()
                 .title(expectedTitle)
@@ -103,6 +104,28 @@ public class PostsApiControllerTest {
 
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
         assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
+    }
+
+    @Test
+    public void registerBaseTimeEntity(){
+        //given
+        LocalDateTime now = LocalDateTime.of(2022,1,1,0,0,0);
+        postsRepository.save(Posts.builder()
+                .title("title")
+                .content("content")
+                .author("author")
+                .build());
+
+        //when
+        List<Posts> postsList = postsRepository.findAll();
+
+        //then
+        Posts posts = postsList.get(0);
+
+        System.out.println(">>>>>> createDate=" + posts.getCreatedDate() + ", modifiedDate=" + posts.getModifiedDate());
+
+        assertThat(posts.getCreatedDate()).isAfter(now);
+        assertThat(posts.getModifiedDate()).isAfter(now);
     }
 
 }
