@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor // TODO, 생성자로 Bean 객체 주입하는 것과 비교
 @Service
 public class PostsService {
@@ -37,5 +40,14 @@ public class PostsService {
                 );
 
         return new PostsResponseDto(entity);
+    }
+
+    @Transactional
+    public List<PostsListResponseDto> findAllDesc() {
+        return postsRepository.findAllDesc()
+                .stream()
+                .map(PostsListResponseDto::new)
+                // .map(posts -> new PostsListResponseDto(posts)) 와 동일
+                .collect(Collectors.toList());
     }
 }
